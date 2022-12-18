@@ -1,5 +1,6 @@
 ﻿using Lab5.Filters;
 using Lab5.picture_utils;
+using Lab5.PictureUtils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,7 +19,7 @@ namespace Lab5
         {
             InitializeComponent();
 
-            ConnectedAreaSearcher connectedAreaSearcher= new ConnectedAreaSearcher();
+            Hemming hemmingDistance = new Hemming();
             byte[,] mass1 = new byte[8, 9] { 
                 {1,1,0,0,1,0,1,0,0 }, 
                 {0,1,0,0,1,0,1,0,0 },
@@ -30,17 +31,9 @@ namespace Lab5
                 {0,0,0,0,0,0,0,1,1 },
             };
             byte[,] mass2 = new byte[8, 9];
-            connectedAreaSearcher.Find(mass1, mass2);
 
-
-            for (int i = 0; i < 8; i++)
-            {
-                for (int j = 0; j < 9; j++)
-                {
-                    Console.WriteLine(mass2[i, j] + " ");
-                }
-                Console.WriteLine("\n");
-            }
+            Console.WriteLine(hemmingDistance.Compare("123456", "888888uuuu"));
+            Console.WriteLine("\n");
             
         }
     }
