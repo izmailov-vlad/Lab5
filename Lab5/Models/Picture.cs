@@ -22,11 +22,25 @@ namespace Lab5.Models
         public Bitmap bitmap {get => _bitmap;}
 
         public int Height { get => _height; }
+        public void SetHeight (int h)
+        {
+            _height = h;
+        }
         public int Width { get => _width; }
+
+        public void SetWidth(int w)
+        {
+            _width = w;
+        }
 
         public byte GetPixel(int i, int j)
         {
             return _pixels[i][j];
+        }
+
+        public void SetPixel(int i, int j, byte value)
+        {
+            _pixels[i][j] = value;
         }
 
 
