@@ -60,6 +60,7 @@ namespace Lab5.picture_utils
         {
             int l = L;
             int p = P;
+
             HashSet<Pair<Pair<int, int>, byte>> neighbors = new HashSet<Pair<Pair<int, int>, byte>>
             {
                 new Pair<Pair<int, int>, byte> (new Pair<int,int> (l + 1, p), pixelsLB[l + 1, p]),
@@ -67,6 +68,14 @@ namespace Lab5.picture_utils
                 new Pair<Pair<int, int>, byte> (new Pair < int, int > (l, p + 1), pixelsLB[l, p + 1]),
                 new Pair<Pair<int, int>, byte> (new Pair < int, int > (l, p - 1), pixelsLB[l, p - 1]),
             };
+
+            if (l > 0) {
+                neighbors.Add(new Pair<Pair<int, int>, byte>(new Pair<int, int>(l - 1, p), pixelsLB[l - 1, p]));
+            }
+            if(p > 0)
+            {
+
+            }
             return neighbors;
         }
     }
