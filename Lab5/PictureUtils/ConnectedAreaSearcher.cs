@@ -3,24 +3,37 @@ using System.Collections.Generic;
 
 namespace Lab5.picture_utils
 {
+    // белый 0
+    // черный 1
     internal class ConnectedAreaSearcher
     {
-        public byte[][] Find(byte[][] pixelsLB)
+        public byte[,] Find(byte[,] pixelsB, byte[,] pixelsLB)
         {
             int label = 0;
+
+            int rows = pixelsLB.GetUpperBound(0) + 1;    // количество строк
+            int columns = pixelsLB.Length / rows; // кол-во столбцов
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    pixelsLB[i,j] = (byte)(pixelsB[i,j] == 1 ? 0 : 1);
+                    
+                }
+            }
             FindComponents(pixelsLB, label);
             return pixelsLB;
         }
 
-        private void FindComponents(byte[][] pixelsLB, int label)
+        private void FindComponents(byte[,] pixelsLB, int label)
         {
             int rows = pixelsLB.GetUpperBound(0) + 1;    // количество строк
             int columns = pixelsLB.Length / rows; // кол-во столбцов
-            for (int L = 0; L < rows; L++)
+            for (int L = 0; L < 8; L++)
             {
-                for(int P = 0; P < columns; P++)
+                for(int P = 0; P < 9; P++)
                 {
-                    if (pixelsLB[L][P] == 0) 
+                    if (pixelsLB[L, P] == 0) 
                     {
                         label++;
                         Search(pixelsLB, label, L, P);
@@ -29,28 +42,30 @@ namespace Lab5.picture_utils
             }
         }
 
-        private void Search(byte[][] pixelsLB, int label, int L, int P) 
+        private void Search(byte[,] pixelsLB, int label, int L, int P) 
         {
-            pixelsLB[L][P] = (byte)label;
-            HashSet<Pair<int, int>> neighbors = Neighbors(L, P);
+            pixelsLB[L, P] = (byte)label;
+            HashSet<Pair<Pair<int, int>, byte>> neighbors = Neighbors(L, P, pixelsLB);
 
-            foreach(Pair<int, int> neighbor in neighbors)
+            foreach(Pair<Pair<int, int>, byte> neighbor in neighbors)
             {
-                if (pixelsLB[neighbor.First][neighbor.Second] == 0)
+                if (neighbor.Second == 0)
                 {
-                    Search(pixelsLB, label, neighbor.First, neighbor.Second);
+                    Search(pixelsLB, label, neighbor.First.First, neighbor.First.Second);
                 }
             }
         }
 
-        private HashSet<Pair<int, int>> Neighbors(int L, int P)
+        private HashSet<Pair<Pair<int, int>, byte>> Neighbors(int L, int P, byte[,] pixelsLB)
         {
-            HashSet<Pair<int, int>> neighbors = new HashSet<Pair<int, int>>
+            int l = L;
+            int p = P;
+            HashSet<Pair<Pair<int, int>, byte>> neighbors = new HashSet<Pair<Pair<int, int>, byte>>
             {
-                new Pair<int, int>(L + 1, P),
-                new Pair<int, int>(L - 1, P),
-                new Pair<int, int>(L, P + 1),
-                new Pair<int, int>(L, P - 1)
+                new Pair<Pair<int, int>, byte> (new Pair<int,int> (l + 1, p), pixelsLB[l + 1, p]),
+                new Pair<Pair<int, int>, byte> (new Pair<int,int> (l - 1, p), pixelsLB[l + 1, p]),
+                new Pair<Pair<int, int>, byte> (new Pair < int, int > (l, p + 1), pixelsLB[l + 1, p]),
+                new Pair<Pair<int, int>, byte> (new Pair < int, int > (l, p - 1), pixelsLB[l + 1, p]),
             };
             return neighbors;
         }
