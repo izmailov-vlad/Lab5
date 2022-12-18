@@ -56,7 +56,7 @@
     </Compile>
     <Compile Include="Models\Pair.cs" />
     <Compile Include="Models\Picture.cs" />
-    <Compile Include="picture_utils\ConnectedAreaSearcher.cs" />
+    <Compile Include="PictureUtils\ConnectedAreaSearcher.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
