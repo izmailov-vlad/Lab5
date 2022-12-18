@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lab5.Models
 {
     internal class Picture
     {
-        private byte[][] _pixels { get; }
-        private int _height;
-        private int _width;
-        private Bitmap _bitmap;
+        private readonly byte[][] _pixels;
+        private readonly int _height;
+        private readonly int _width;
+        private readonly Bitmap _bitmap;
 
         public byte[][] Pixels
         {
