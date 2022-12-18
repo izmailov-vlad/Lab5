@@ -63,9 +63,9 @@ namespace Lab5.picture_utils
             HashSet<Pair<Pair<int, int>, byte>> neighbors = new HashSet<Pair<Pair<int, int>, byte>>
             {
                 new Pair<Pair<int, int>, byte> (new Pair<int,int> (l + 1, p), pixelsLB[l + 1, p]),
-                new Pair<Pair<int, int>, byte> (new Pair<int,int> (l - 1, p), pixelsLB[l + 1, p]),
-                new Pair<Pair<int, int>, byte> (new Pair < int, int > (l, p + 1), pixelsLB[l + 1, p]),
-                new Pair<Pair<int, int>, byte> (new Pair < int, int > (l, p - 1), pixelsLB[l + 1, p]),
+                new Pair<Pair<int, int>, byte> (new Pair<int,int> (l - 1, p), pixelsLB[l - 1, p]),
+                new Pair<Pair<int, int>, byte> (new Pair < int, int > (l, p + 1), pixelsLB[l, p + 1]),
+                new Pair<Pair<int, int>, byte> (new Pair < int, int > (l, p - 1), pixelsLB[l, p - 1]),
             };
             return neighbors;
         }
