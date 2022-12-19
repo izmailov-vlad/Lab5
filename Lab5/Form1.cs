@@ -20,17 +20,6 @@ namespace Lab5
             InitializeComponent();
 
             Hemming hemmingDistance = new Hemming();
-            byte[,] mass1 = new byte[8, 9] { 
-                {1,1,0,0,1,0,1,0,0 }, 
-                {0,1,0,0,1,0,1,0,0 },
-                {0,1,1,1,1,0,1,1,1 },
-                {0,0,0,0,0,0,0,0,1 },
-                {1,1,1,0,0,0,0,0,0 },
-                {0,0,1,1,1,0,1,0,0 },
-                {1,1,1,0,1,0,0,0,0 },
-                {0,0,0,0,0,0,0,1,1 },
-            };
-            byte[,] mass2 = new byte[8, 9];
 
             Console.WriteLine(hemmingDistance.Compare("123456", "888888uuuu"));
             Console.WriteLine("\n");
