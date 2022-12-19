@@ -17,6 +17,7 @@ namespace Lab5.picture_utils
             Negate(pixelsB, pixelsLB, rows, columns);
             FindComponents(pixelsLB, label);
             Normalize(pixelsB, pixelsLB, rows, columns);
+
             return pixelsLB;
         }
 
