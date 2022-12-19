@@ -43,8 +43,6 @@ namespace Lab5.picture_utils
                     {
                         pixelsLB[i, j] = pixelsB[i, j];
                     }
-                    
-
                 }
             }
         }
