@@ -20,7 +20,7 @@ namespace Lab5.Filters
             {
                 for (int j = 0; j < columns; j++)
                 {
-                    _pixels[i][j] = _pixels[i][j] <= 50 ? _pixels[i][j] = 1 : _pixels[i][j] = 0;
+                    _pixels[i][j] = (byte)(_pixels[i][j] <= 50 ? 1 : 0);
                 }
             }
 

@@ -37,9 +37,9 @@ namespace Lab5
             {
                 for (int j = 0; j < 9; j++)
                 {
-                    Console.WriteLine(mass2[i, j] + " ");
+                    Console.Write(mass2[i, j] + " ");
                 }
-                Console.WriteLine("\n");
+                Console.Write("\n");
             }
             
         }
