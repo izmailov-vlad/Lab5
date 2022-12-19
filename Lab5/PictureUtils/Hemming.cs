@@ -10,9 +10,13 @@ namespace Lab5.PictureUtils
     {
         public int Compare(string str1, string str2) {
             int d = 0;
-            for(int i = 0; i < Math.Min(str1.Length, str2.Length); i++)
+            int str1Length = str1.Length;
+            int str2Length = str2.Length;
+            for(int i = 0; i < Math.Min(str1Length, str2Length); i++)
             {
-                if(str1[i] != str2[i])
+                str1Length--;
+                str2Length--;
+                if(str1[str1Length] != str2[str2Length])
                 {
                     d += 1;
                 }
