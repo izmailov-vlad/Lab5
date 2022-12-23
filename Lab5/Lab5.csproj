@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Filters\MonochromeFilter.cs" />
     <Compile Include="Filters\MorfFilter.cs" />
+    <Compile Include="Filters\Poluglad.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
