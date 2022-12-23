@@ -16,6 +16,11 @@ namespace Lab5.Main
         private MorfFilter _morfologiusFilter;
         private ConnectedAreaSearcher _connectedAreaSearcher;
         private Hemming _hemming;
+        private Poluglad _poluglad;
+
+        
+        byte[,] pixels;
+
 
         public PictureBuilder()
         {
@@ -23,14 +28,16 @@ namespace Lab5.Main
             _morfologiusFilter = new MorfFilter();
             _connectedAreaSearcher = new ConnectedAreaSearcher();
             _hemming = new Hemming();
+            _poluglad = new Poluglad();
         }
 
-        public int Build(byte[,] pixels, Int64 hashB) {
+        public int Build() {
+            pixels = _poluglad.Execute();
             pixels = _monochromeFilter.Execute(pixels);
             pixels = _morfologiusFilter.Execute(pixels);
             pixels = _connectedAreaSearcher.Find(pixels);
-            Int64 hashA = _morfologiusFilter.Hashing(pixels);
-            return _hemming.Compare(hashA.ToString(), hashB.ToString());
+            Int64 finalHash = _morfologiusFilter.Hashing(pixels);
+            return _hemming.Compare(finalHash.ToString(), "Initial hash");
         }
     }
 }

@@ -19,15 +19,22 @@ namespace Lab5
         byte[] bluePal = new byte[4];  //хранятся все возможные биты для синей составляющей 1 типа пикселей
         Picture pic;
         byte[][] pix;
-        byte [,] matrix = { {1, 2, 1}, {2, 4, 2}, {1, 2, 1} };
+        byte[,] matrix = { { 1, 2, 1 }, { 2, 4, 2 }, { 1, 2, 1 } };
 
 
-
-        public Picture Start ()
+        public byte[,] Execute()
         {
             Poluton();
             Glad();
-            return pic;
+            byte[,] res = new byte[pic.Height, pic.Width];
+            for (int i = 0; i < pic.Height; i++)
+            {
+                for (int j = 0; j < pic.Width; j++)
+                {
+                    res[i, j] = pix[i][j];
+                }
+            }
+            return res;
         }
 
         private void Glad()
@@ -40,45 +47,45 @@ namespace Lab5
                     {
                         if (j == 0)
                         {
-                            pic.SetPixel(i, j, (byte)((matrix[0, 0] * 0 + matrix[0, 1] * 0 + matrix[0, 2] * 0 + matrix[1, 0] * 0 + matrix[1, 1] * pic.GetPixel(i, j) + matrix[1, 2] * pic.GetPixel(i, j+1) + matrix[2, 0] * 0 + matrix[2, 1] * pic.GetPixel(i+1, j) + matrix[2, 2] * pic.GetPixel(i + 1, j + 1)) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2])));
+                            pix[i][j] = (byte)((matrix[0, 0] * 0 + matrix[0, 1] * 0 + matrix[0, 2] * 0 + matrix[1, 0] * 0 + matrix[1, 1] * pix[i][j] + matrix[1, 2] * pix[i][j+1] + matrix[2, 0] * 0 + matrix[2, 1] * pix[i + 1][j] + matrix[2, 2] * pix[i + 1][j + 1]) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
                         }
                         else if (j == pic.Width - 1)
                         {
-                            pic.SetPixel(i, j, (byte)((matrix[0, 0] * 0 + matrix[0, 1] * 0 + matrix[0, 2] * 0 + matrix[1, 0] * pic.GetPixel(i, j - 1) + matrix[1, 1] * pic.GetPixel(i, j) + matrix[1, 2] * 0 + matrix[2, 0] * pic.GetPixel(i + 1, j - 1) + matrix[2, 1] * pic.GetPixel(i + 1, j) + matrix[2, 2] * 0) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2])));
+                            pix[i][j] = (byte)((matrix[0, 0] * 0 + matrix[0, 1] * 0 + matrix[0, 2] * 0 + matrix[1, 0] * pix[i][j - 1] + matrix[1, 1] * pix[i][j] + matrix[1, 2] * 0 + matrix[2, 0] * pix[i + 1][j - 1] + matrix[2, 1] * pix[i + 1][j] + matrix[2, 2] * 0) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
                         }
                         else
                         {
-                            pic.SetPixel(i, j, (byte)((matrix[0, 0] * 0 + matrix[0, 1] * 0 + matrix[0, 2] * 0 + matrix[1, 0] * pic.GetPixel(i, j - 1) + matrix[1, 1] * pic.GetPixel(i, j) + matrix[1, 2] * pic.GetPixel(i, j + 1) + matrix[2, 0] * pic.GetPixel(i + 1, j - 1) + matrix[2, 1] * pic.GetPixel(i + 1, j) + matrix[2, 2] * pic.GetPixel(i + 1, j + 1)) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2])));
+                            pix[i][j] = (byte)((matrix[0, 0] * 0 + matrix[0, 1] * 0 + matrix[0, 2] * 0 + matrix[1, 0] * pix[i][j - 1] + matrix[1, 1] * pix[i][j] + matrix[1, 2] * pix[i][j + 1] + matrix[2, 0] * pix[i + 1][j - 1] + matrix[2, 1] * pix[i + 1][j] + matrix[2, 2] * pix[i + 1][j + 1]) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
                         }
                     }
                     else if (i == pic.Height - 1)
                     {
                         if (j == 0)
                         {
-                            pic.SetPixel(i, j, (byte)((matrix[0, 0] * 0 + matrix[0, 1] * pic.GetPixel(i - 1, j) + matrix[0, 2] * pic.GetPixel(i - 1, j + 1) + matrix[1, 0] * 0 + matrix[1, 1] * pic.GetPixel(i, j) + matrix[1, 2] * pic.GetPixel(i, j + 1) + matrix[2, 0] * 0 + matrix[2, 1] * 0 + matrix[2, 2] * 0) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2])));
-                        }
+                            pix[i][j] = (byte)((matrix[0, 0] * 0 + matrix[0, 1] * pix[i - 1][j] + matrix[0, 2] * pix[i - 1][j + 1] + matrix[1, 0] * 0 + matrix[1, 1] * pix[i][j] + matrix[1, 2] * pix[i][j + 1] + matrix[2, 0] * 0 + matrix[2, 1] * 0 + matrix[2, 2] * 0) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
+                        }   
                         else if (j == pic.Width - 1)
                         {
-                            pic.SetPixel(i, j, (byte)((matrix[0, 0] * pic.GetPixel(i - 1, j - 1) + matrix[0, 1] * pic.GetPixel(i - 1, j) + matrix[0, 2] * 0 + matrix[1, 0] * pic.GetPixel(i, j - 1) + matrix[1, 1] * pic.GetPixel(i, j) + matrix[1, 2] * 0 + matrix[2, 0] * 0 + matrix[2, 1] * 0 + matrix[2, 2] * 0) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2])));
+                            pix[i][j] = (byte)((matrix[0, 0] * pix[i - 1][j - 1] + matrix[0, 1] * pix[i - 1][j] + matrix[0, 2] * 0 + matrix[1, 0] * pix[i][j - 1] + matrix[1, 1] * pix[i][j] + matrix[1, 2] * 0 + matrix[2, 0] * 0 + matrix[2, 1] * 0 + matrix[2, 2] * 0) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
                         }
                         else
                         {
-                            pic.SetPixel(i, j, (byte)((matrix[0, 0] * pic.GetPixel(i - 1, j - 1) + matrix[0, 1] * pic.GetPixel(i - 1, j) + matrix[0, 2] * pic.GetPixel(i - 1, j + 1) + matrix[1, 0] * pic.GetPixel(i, j - 1) + matrix[1, 1] * pic.GetPixel(i, j) + matrix[1, 2] * pic.GetPixel(i, j + 1) + matrix[2, 0] * 0 + matrix[2, 1] * 0 + matrix[2, 2] * 0) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2])));
+                            pix[i][j] = (byte)((matrix[0, 0] * pix[i - 1][j - 1] + matrix[0, 1] * pix[i - 1][j] + matrix[0, 2] * pix[i - 1][j + 1] + matrix[1, 0] * pix[i][j - 1] + matrix[1, 1] * pix[i][j] + matrix[1, 2] * pix[i][j + 1] + matrix[2, 0] * 0 + matrix[2, 1] * 0 + matrix[2, 2] * 0) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
                         }
                     }
                     else
                     {
                         if (j == 0)
                         {
-                            pic.SetPixel(i, j, (byte)((matrix[0, 0] * 0 + matrix[0, 1] * pic.GetPixel(i - 1, j) + matrix[0, 2] * pic.GetPixel(i - 1, j + 1) + matrix[1, 0] * 0 + matrix[1, 1] * pic.GetPixel(i, j) + matrix[1, 2] * pic.GetPixel(i, j + 1) + matrix[2, 0] * 0 + matrix[2, 1] * pic.GetPixel(i + 1, j) + matrix[2, 2] * pic.GetPixel(i + 1, j + 1)) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2])));
+                            pix[i][j] = (byte)((matrix[0, 0] * 0 + matrix[0, 1] * pix[i - 1][j] + matrix[0, 2] * pix[i - 1][j + 1] + matrix[1, 0] * 0 + matrix[1, 1] * pix[i][j] + matrix[1, 2] * pix[i][j + 1] + matrix[2, 0] * 0 + matrix[2, 1] * pix[i + 1][j] + matrix[2, 2] * pix[i + 1][j + 1]) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
                         }
                         else if (j == pic.Width - 1)
                         {
-                            pic.SetPixel(i, j, (byte)((matrix[0, 0] * pic.GetPixel(i - 1, j - 1) + matrix[0, 1] * pic.GetPixel(i - 1, j) + matrix[0, 2] * 0 + matrix[1, 0] * pic.GetPixel(i, j - 1) + matrix[1, 1] * pic.GetPixel(i, j) + matrix[1, 2] * 0 + matrix[2, 0] * pic.GetPixel(i + 1, j - 1) + matrix[2, 1] * pic.GetPixel(i + 1, j) + matrix[2, 2] * 0) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2])));
+                            pix[i][j] = (byte)((matrix[0, 0] * pix[i - 1][j - 1] + matrix[0, 1] * pix[i - 1][j] + matrix[0, 2] * 0 + matrix[1, 0] * pix[i][j - 1] + matrix[1, 1] * pix[i][j] + matrix[1, 2] * 0 + matrix[2, 0] * pix[i + 1][j - 1] + matrix[2, 1] * pix[i + 1][j] + matrix[2, 2] * 0) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
                         }
                         else
                         {
-                            pic.SetPixel(i, j, (byte)((matrix[0, 0] * pic.GetPixel(i - 1, j - 1) + matrix[0, 1] * pic.GetPixel(i - 1, j) + matrix[0, 2] * pic.GetPixel(i - 1, j + 1) + matrix[1, 0] * pic.GetPixel(i, j - 1) + matrix[1, 1] * pic.GetPixel(i, j) + matrix[1, 2] * pic.GetPixel(i, j + 1) + matrix[2, 0] * pic.GetPixel(i + 1, j - 1) + matrix[2, 1] * pic.GetPixel(i + 1, j) + matrix[2, 2] * pic.GetPixel(i + 1, j + 1)) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2])));
+                            pix[i][j] = (byte)((matrix[0, 0] * pix[i - 1][j - 1] + matrix[0, 1] * pix[i - 1][j] + matrix[0, 2] * pix[i - 1][j + 1] + matrix[1, 0] * pix[i][j - 1] + matrix[1, 1] * pix[i][j] + matrix[1, 2] * pix[i][j + 1] + matrix[2, 0] * pix[i + 1][j - 1] + matrix[2, 1] * pix[i + 1][j] + matrix[2, 2] * pix[i + 1][j + 1]) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
                         }
                     }
                 }
@@ -117,7 +124,7 @@ namespace Lab5
                 }
                 InitializePallet();
                 readPixels(fs, pic);  //читаем и отрисовываем пиксели из файла
-                pic = new Picture(pix);
+                pic = new Picture();
                 pic.SetHeight(zag[1]);
                 pic.SetWidth(zag[0]);
                 fs.Close();
@@ -137,11 +144,6 @@ namespace Lab5
             byte red;
             byte green;
             byte blue;
-
-
-
-
-
             byte number;  //индекс цвета в палитре (2 тип пикселей)
             byte buf = 0;
             pix = new byte[zag[1]][];
