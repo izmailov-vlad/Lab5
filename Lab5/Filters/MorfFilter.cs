@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Lab5.Filters
 {
@@ -34,6 +36,42 @@ namespace Lab5.Filters
                 for (int j = 0; j < columns; j++)
                 {
                     massmain[i, j] = massnew[i, j];
+                }
+            }
+        }
+
+        Int64 Hashing(byte[,] mass1)
+        {
+            byte[] mass2 = new byte[8];
+            BitArray bitmass = new BitArray(64);
+
+            int g = 0;
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++, g++)
+                {
+                    if (mass1[i, j] == 0)
+                        bitmass[g] = false;
+                    else
+                        bitmass[g] = true;
+                }
+            }
+
+            bitmass.CopyTo(mass2, 0);
+            return (BitConverter.ToInt64(mass2, 0));
+        }
+
+        // Метод ближайшего соседа для СЖАТИЯ изображения
+        void Nearestneighbor(byte[,] oldmas, byte[,] newmas, int oldwidth, int oldheight, int newwidth, int newheight)
+        {
+            int k1 = (oldheight / newheight);
+            int k2 = (oldwidth / newwidth);
+
+            for (int i = 0; i < newheight - 1; i++)
+            {
+                for (int j = 0; j < newwidth - 1; j++)
+                {
+                    newmas[i, j] = oldmas[i * k1, j * k2]; //записываем в новый массив пиксели согласно их "ближайшему" соседу в старом
                 }
             }
         }
