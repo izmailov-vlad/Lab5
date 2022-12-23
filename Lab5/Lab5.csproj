@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Filters\IFilter.cs" />
     <Compile Include="Filters\MonochromeFilter.cs" />
     <Compile Include="Filters\MorfFilter.cs" />
     <Compile Include="Form1.cs">
@@ -55,6 +54,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Main\PictureBuilder.cs" />
     <Compile Include="Models\Pair.cs" />
     <Compile Include="Models\Picture.cs" />
     <Compile Include="PictureUtils\ConnectedAreaSearcher.cs" />

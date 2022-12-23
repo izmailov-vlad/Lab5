@@ -8,10 +8,10 @@ namespace Lab5.picture_utils
     // черный 1
     internal class ConnectedAreaSearcher
     {
-        public byte[,] Find(byte[,] pixelsB, byte[,] pixelsLB)
+        public byte[,] Find(byte[,] pixelsB)
         {
             int label = 0;
-
+            byte[,] pixelsLB = pixelsB;
             int rows = pixelsLB.GetUpperBound(0) + 1;    // количество строк
             int columns = pixelsLB.Length / rows; // кол-во столбцов
             Negate(pixelsB, pixelsLB, rows, columns);

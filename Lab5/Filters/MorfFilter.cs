@@ -13,34 +13,31 @@ namespace Lab5.Filters
         // функция Dilation производит Морфологическую дилатацию с помощью маски 3x3.
         // Первый массив - начальный двумерный массив с изображением (монохромным), второй - новый массив той же размерности с результатом работы
         // второй массив нужен в связи с невозможностью сразу записывать новые значения элемента в процессе (особенность прохода маской)
-        void Dilation(byte[,] massmain, byte[,] massnew) //дилатация если 1 - это чёрный (мы так решили...)
+        public byte[,] Execute(byte[,] pixels) //дилатация если 1 - это чёрный (мы так решили...)
         {
-            int rows = massmain.GetUpperBound(0) + 1;    // количество строк
-            int columns = massmain.Length / rows;        // количество столбцов
+            int rows = pixels.GetUpperBound(0) + 1;    // количество строк
+            int columns = pixels.Length / rows; // количество столбцов
+
+            byte[,] result = pixels;
 
             for (int i = 1; i < rows - 1; i++)
             {
                 for (int j = 1; j < columns - 1; j++)
                 {
-                    if (((massmain[i - 1, j - 1]) == 0) || ((massmain[i - 1, j]) == 0) || ((massmain[i - 1, j + 1]) == 0) || ((massmain[i, j - 1]) == 0) || ((massmain[i, j]) == 0) || ((massmain[i, j + 1]) == 0) || ((massmain[i + 1, j - 1]) == 0) || ((massmain[i + 1, j]) == 0) || ((massmain[i + 1, j + 1]) == 0))
+                    if (((pixels[i - 1, j - 1]) == 0) || ((pixels[i - 1, j]) == 0) || ((pixels[i - 1, j + 1]) == 0) || ((pixels[i, j - 1]) == 0) || ((pixels[i, j]) == 0) || ((massmain[i, j + 1]) == 0) || ((massmain[i + 1, j - 1]) == 0) || ((massmain[i + 1, j]) == 0) || ((massmain[i + 1, j + 1]) == 0))
                     {
-                        massnew[i, j] = 0;
+                        result[i, j] = 0;
                     }
                     else
-                        massnew[i, j] = 1;
+                        result[i, j] = 1;
                 }
             }
 
-            for (int i = 0; i < rows; i++)
-            {
-                for (int j = 0; j < columns; j++)
-                {
-                    massmain[i, j] = massnew[i, j];
-                }
-            }
+            
+            return result;
         }
 
-        Int64 Hashing(byte[,] mass1)
+        public Int64 Hashing(byte[,] mass1)
         {
             byte[] mass2 = new byte[8];
             BitArray bitmass = new BitArray(64);
