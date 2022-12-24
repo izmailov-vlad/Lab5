@@ -24,7 +24,7 @@ namespace Lab5.Filters
             {
                 for (int j = 1; j < columns - 1; j++)
                 {
-                    if (((pixels[i - 1, j - 1]) == 0) || ((pixels[i - 1, j]) == 0) || ((pixels[i - 1, j + 1]) == 0) || ((pixels[i, j - 1]) == 0) || ((pixels[i, j]) == 0) || ((massmain[i, j + 1]) == 0) || ((massmain[i + 1, j - 1]) == 0) || ((massmain[i + 1, j]) == 0) || ((massmain[i + 1, j + 1]) == 0))
+                    if (((pixels[i - 1, j - 1]) == 0) || ((pixels[i - 1, j]) == 0) || ((pixels[i - 1, j + 1]) == 0) || ((pixels[i, j - 1]) == 0) || ((pixels[i, j]) == 0) || ((pixels[i, j + 1]) == 0) || ((pixels[i + 1, j - 1]) == 0) || ((pixels[i + 1, j]) == 0) || ((pixels[i + 1, j + 1]) == 0))
                     {
                         result[i, j] = 0;
                     }
