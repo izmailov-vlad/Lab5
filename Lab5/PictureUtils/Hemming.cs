@@ -8,7 +8,7 @@ namespace Lab5.PictureUtils
 {
     class Hemming
     {
-        public int Compare(string str1, string str2) {
+        public bool Compare(string str1, string str2) {
             int d = 0;
             int str1Length = str1.Length;
             int str2Length = str2.Length;
@@ -16,12 +16,12 @@ namespace Lab5.PictureUtils
             {
                 str1Length--;
                 str2Length--;
-                if(str1[str1Length] != str2[str2Length])
+                if(str1[i] != str2[i])
                 {
                     d += 1;
                 }
             }
-            return d;
+            return d <= 22;
         }
     }
 }

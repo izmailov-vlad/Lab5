@@ -3,10 +3,6 @@ using Lab5.picture_utils;
 using Lab5.PictureUtils;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lab5.Main
 {
@@ -19,7 +15,16 @@ namespace Lab5.Main
         private Poluglad _poluglad;
 
         
-        byte[,] pixels;
+        byte[,] pixels = { 
+            {1,1,0,0,1,0,1,0,0 }, 
+            { 0,1,0,0,1,0,1,0,0}, 
+            { 0,1,1,1,1,0,1,1,1},
+            { 0,0,0,0,0,0,0,0,1}, 
+            { 1,1,1,0,0,0,0,0,0}, 
+            { 0,0,1,1,1,0,1,0,0},
+            { 1,1,1,0,1,0,0,0,0},
+            { 0,0,0,0,0,0,0,1,1},
+        };
 
 
         public PictureBuilder()
@@ -31,13 +36,22 @@ namespace Lab5.Main
             _poluglad = new Poluglad();
         }
 
-        public int Build() {
+        public void Build() {
             pixels = _poluglad.Execute();
             pixels = _monochromeFilter.Execute(pixels);
-            pixels = _morfologiusFilter.Execute(pixels);
+            pixels = _morfologiusFilter.Dilation(pixels);
+
             pixels = _connectedAreaSearcher.Find(pixels);
-            Int64 finalHash = _morfologiusFilter.Hashing(pixels);
-            return _hemming.Compare(finalHash.ToString(), "Initial hash");
+
+            foreach (KeyValuePair<int, byte[,]> valuePair in _connectedAreaSearcher._areas)
+            {
+                String finalHash = _morfologiusFilter.Nearestneighbor(valuePair.Value);
+                Console.WriteLine(_hemming.Compare(finalHash, _poluglad.pic.GetHash("P")));
+                Console.WriteLine(_hemming.Compare(finalHash, _poluglad.pic.GetHash("H")));
+            }
+            
+
+            
         }
     }
 }

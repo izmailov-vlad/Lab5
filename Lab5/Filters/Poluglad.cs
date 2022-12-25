@@ -17,9 +17,19 @@ namespace Lab5
         byte[] redPal = new byte[8];  //хранятся все возможные биты для красной составляющей 1 типа пикселей
         byte[] greenPal = new byte[4];  //хранятся все возможные биты для зеленой составляющей 1 типа пикселей
         byte[] bluePal = new byte[4];  //хранятся все возможные биты для синей составляющей 1 типа пикселей
-        Picture pic;
+        public Picture pic;
         byte[][] pix;
         byte[,] matrix = { { 1, 2, 1 }, { 2, 4, 2 }, { 1, 2, 1 } };
+        byte[][] buffer;
+        
+           
+        /*Хэши:
+
+        Буква П:
+        0000000000000000000000000000000000000000000010000000100000000000
+
+        Буква Н:
+        0000000000000000000000000001110000000000000000000000000000000000*/
 
 
         public byte[,] Execute()
@@ -31,7 +41,7 @@ namespace Lab5
             {
                 for (int j = 0; j < pic.Width; j++)
                 {
-                    res[i, j] = pix[i][j];
+                    res[i, j] = buffer[i][j];
                 }
             }
             return res;
@@ -47,45 +57,45 @@ namespace Lab5
                     {
                         if (j == 0)
                         {
-                            pix[i][j] = (byte)((matrix[0, 0] * 0 + matrix[0, 1] * 0 + matrix[0, 2] * 0 + matrix[1, 0] * 0 + matrix[1, 1] * pix[i][j] + matrix[1, 2] * pix[i][j+1] + matrix[2, 0] * 0 + matrix[2, 1] * pix[i + 1][j] + matrix[2, 2] * pix[i + 1][j + 1]) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
+                            buffer[i][j] = (byte)((matrix[0, 0] * 0 + matrix[0, 1] * 0 + matrix[0, 2] * 0 + matrix[1, 0] * 0 + matrix[1, 1] * pix[i][j] + matrix[1, 2] * pix[i][j+1] + matrix[2, 0] * 0 + matrix[2, 1] * pix[i + 1][j] + matrix[2, 2] * pix[i + 1][j + 1]) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
                         }
                         else if (j == pic.Width - 1)
                         {
-                            pix[i][j] = (byte)((matrix[0, 0] * 0 + matrix[0, 1] * 0 + matrix[0, 2] * 0 + matrix[1, 0] * pix[i][j - 1] + matrix[1, 1] * pix[i][j] + matrix[1, 2] * 0 + matrix[2, 0] * pix[i + 1][j - 1] + matrix[2, 1] * pix[i + 1][j] + matrix[2, 2] * 0) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
+                            buffer[i][j] = (byte)((matrix[0, 0] * 0 + matrix[0, 1] * 0 + matrix[0, 2] * 0 + matrix[1, 0] * pix[i][j - 1] + matrix[1, 1] * pix[i][j] + matrix[1, 2] * 0 + matrix[2, 0] * pix[i + 1][j - 1] + matrix[2, 1] * pix[i + 1][j] + matrix[2, 2] * 0) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
                         }
                         else
                         {
-                            pix[i][j] = (byte)((matrix[0, 0] * 0 + matrix[0, 1] * 0 + matrix[0, 2] * 0 + matrix[1, 0] * pix[i][j - 1] + matrix[1, 1] * pix[i][j] + matrix[1, 2] * pix[i][j + 1] + matrix[2, 0] * pix[i + 1][j - 1] + matrix[2, 1] * pix[i + 1][j] + matrix[2, 2] * pix[i + 1][j + 1]) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
+                            buffer[i][j] = (byte)((matrix[0, 0] * 0 + matrix[0, 1] * 0 + matrix[0, 2] * 0 + matrix[1, 0] * pix[i][j - 1] + matrix[1, 1] * pix[i][j] + matrix[1, 2] * pix[i][j + 1] + matrix[2, 0] * pix[i + 1][j - 1] + matrix[2, 1] * pix[i + 1][j] + matrix[2, 2] * pix[i + 1][j + 1]) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
                         }
                     }
                     else if (i == pic.Height - 1)
                     {
                         if (j == 0)
                         {
-                            pix[i][j] = (byte)((matrix[0, 0] * 0 + matrix[0, 1] * pix[i - 1][j] + matrix[0, 2] * pix[i - 1][j + 1] + matrix[1, 0] * 0 + matrix[1, 1] * pix[i][j] + matrix[1, 2] * pix[i][j + 1] + matrix[2, 0] * 0 + matrix[2, 1] * 0 + matrix[2, 2] * 0) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
+                            buffer[i][j] = (byte)((matrix[0, 0] * 0 + matrix[0, 1] * pix[i - 1][j] + matrix[0, 2] * pix[i - 1][j + 1] + matrix[1, 0] * 0 + matrix[1, 1] * pix[i][j] + matrix[1, 2] * pix[i][j + 1] + matrix[2, 0] * 0 + matrix[2, 1] * 0 + matrix[2, 2] * 0) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
                         }   
                         else if (j == pic.Width - 1)
                         {
-                            pix[i][j] = (byte)((matrix[0, 0] * pix[i - 1][j - 1] + matrix[0, 1] * pix[i - 1][j] + matrix[0, 2] * 0 + matrix[1, 0] * pix[i][j - 1] + matrix[1, 1] * pix[i][j] + matrix[1, 2] * 0 + matrix[2, 0] * 0 + matrix[2, 1] * 0 + matrix[2, 2] * 0) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
+                            buffer[i][j] = (byte)((matrix[0, 0] * pix[i - 1][j - 1] + matrix[0, 1] * pix[i - 1][j] + matrix[0, 2] * 0 + matrix[1, 0] * pix[i][j - 1] + matrix[1, 1] * pix[i][j] + matrix[1, 2] * 0 + matrix[2, 0] * 0 + matrix[2, 1] * 0 + matrix[2, 2] * 0) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
                         }
                         else
                         {
-                            pix[i][j] = (byte)((matrix[0, 0] * pix[i - 1][j - 1] + matrix[0, 1] * pix[i - 1][j] + matrix[0, 2] * pix[i - 1][j + 1] + matrix[1, 0] * pix[i][j - 1] + matrix[1, 1] * pix[i][j] + matrix[1, 2] * pix[i][j + 1] + matrix[2, 0] * 0 + matrix[2, 1] * 0 + matrix[2, 2] * 0) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
+                            buffer[i][j] = (byte)((matrix[0, 0] * pix[i - 1][j - 1] + matrix[0, 1] * pix[i - 1][j] + matrix[0, 2] * pix[i - 1][j + 1] + matrix[1, 0] * pix[i][j - 1] + matrix[1, 1] * pix[i][j] + matrix[1, 2] * pix[i][j + 1] + matrix[2, 0] * 0 + matrix[2, 1] * 0 + matrix[2, 2] * 0) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
                         }
                     }
                     else
                     {
                         if (j == 0)
                         {
-                            pix[i][j] = (byte)((matrix[0, 0] * 0 + matrix[0, 1] * pix[i - 1][j] + matrix[0, 2] * pix[i - 1][j + 1] + matrix[1, 0] * 0 + matrix[1, 1] * pix[i][j] + matrix[1, 2] * pix[i][j + 1] + matrix[2, 0] * 0 + matrix[2, 1] * pix[i + 1][j] + matrix[2, 2] * pix[i + 1][j + 1]) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
+                            buffer[i][j] = (byte)((matrix[0, 0] * 0 + matrix[0, 1] * pix[i - 1][j] + matrix[0, 2] * pix[i - 1][j + 1] + matrix[1, 0] * 0 + matrix[1, 1] * pix[i][j] + matrix[1, 2] * pix[i][j + 1] + matrix[2, 0] * 0 + matrix[2, 1] * pix[i + 1][j] + matrix[2, 2] * pix[i + 1][j + 1]) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
                         }
                         else if (j == pic.Width - 1)
                         {
-                            pix[i][j] = (byte)((matrix[0, 0] * pix[i - 1][j - 1] + matrix[0, 1] * pix[i - 1][j] + matrix[0, 2] * 0 + matrix[1, 0] * pix[i][j - 1] + matrix[1, 1] * pix[i][j] + matrix[1, 2] * 0 + matrix[2, 0] * pix[i + 1][j - 1] + matrix[2, 1] * pix[i + 1][j] + matrix[2, 2] * 0) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
+                            buffer[i][j] = (byte)((matrix[0, 0] * pix[i - 1][j - 1] + matrix[0, 1] * pix[i - 1][j] + matrix[0, 2] * 0 + matrix[1, 0] * pix[i][j - 1] + matrix[1, 1] * pix[i][j] + matrix[1, 2] * 0 + matrix[2, 0] * pix[i + 1][j - 1] + matrix[2, 1] * pix[i + 1][j] + matrix[2, 2] * 0) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
                         }
                         else
                         {
-                            pix[i][j] = (byte)((matrix[0, 0] * pix[i - 1][j - 1] + matrix[0, 1] * pix[i - 1][j] + matrix[0, 2] * pix[i - 1][j + 1] + matrix[1, 0] * pix[i][j - 1] + matrix[1, 1] * pix[i][j] + matrix[1, 2] * pix[i][j + 1] + matrix[2, 0] * pix[i + 1][j - 1] + matrix[2, 1] * pix[i + 1][j] + matrix[2, 2] * pix[i + 1][j + 1]) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
+                            buffer[i][j] = (byte)((matrix[0, 0] * pix[i - 1][j - 1] + matrix[0, 1] * pix[i - 1][j] + matrix[0, 2] * pix[i - 1][j + 1] + matrix[1, 0] * pix[i][j - 1] + matrix[1, 1] * pix[i][j] + matrix[1, 2] * pix[i][j + 1] + matrix[2, 0] * pix[i + 1][j - 1] + matrix[2, 1] * pix[i + 1][j] + matrix[2, 2] * pix[i + 1][j + 1]) / (matrix[0, 0] + matrix[0, 1] + matrix[0, 2] + matrix[1, 0] + matrix[1, 1] + matrix[1, 2] + matrix[2, 0] + matrix[2, 1] + matrix[2, 2]));
                         }
                     }
                 }
@@ -94,7 +104,7 @@ namespace Lab5
 
         private void Poluton()
         {
-            using (FileStream fs = new FileStream("a.var3", FileMode.Open))  //открываем поток на чтение
+            using (FileStream fs = new FileStream("P.var3", FileMode.Open))  //открываем поток на чтение
             {
                 int val;
                 val = BitConverter.ToInt32(b, 0);
@@ -147,11 +157,11 @@ namespace Lab5
             byte number;  //индекс цвета в палитре (2 тип пикселей)
             byte buf = 0;
             pix = new byte[zag[1]][];
-
+            buffer = new byte[zag[1]][];
             for (int vis = 0; vis < zag[1]; vis++)        //двигаемся вниз по холсту в соответствии со значением высоты из файла
             {
                 pix[vis] = new byte[zag[0]];
-
+                buffer[vis] = new byte[zag[0]];
                 for (int sh = 0; sh < zag[0]; sh++)      //вширь в соответствии значению ширины из файла
                 {
                     pixel = (byte)fs.ReadByte();

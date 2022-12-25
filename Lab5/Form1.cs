@@ -1,4 +1,5 @@
 ﻿using Lab5.Main;
+using System;
 using System.Windows.Forms;
 
 // полутоновое, сглаживающий, привидение к монохромноому, морфологический, связный области, Перцептивный хэш, сравнение с помощью хэмменга
@@ -10,8 +11,11 @@ namespace Lab5
         public Form1()
         {
             InitializeComponent();
-            PictureBuilder pictureBuilder = new PictureBuilder();
-            pictureBuilder.Build();
+              PictureBuilder pictureBuilder = new PictureBuilder();
+              pictureBuilder.Build();
+
+            System.Int64 asd = 123;
+            Console.Write(BitConverter.GetBytes(asd));
         }
     }
 }

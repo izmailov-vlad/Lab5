@@ -3,12 +3,12 @@ namespace Lab5.Models
 {
     internal class Pair<F,S>
     {
-        private readonly F _first;
-        private readonly S _second;
+        private F _first;
+        private S _second;
 
-        public F First { get => _first; }
+        public F First { get => _first; set => this._first = value; }
 
-        public S Second { get => _second; }
+        public S Second { get => _second; set => this._second = value; }
 
         public Pair(F first, S second)
         {
